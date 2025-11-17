@@ -15,9 +15,9 @@ class CategoriesTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID')
-                    ->sortable(),
+                TextColumn::make('index')
+                ->label('No.') // Optional: customize the column header label
+                ->rowIndex(),
                 TextColumn::make('name')
                     ->label('Category Name')
                     ->sortable()

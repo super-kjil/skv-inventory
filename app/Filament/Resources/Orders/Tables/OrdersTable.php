@@ -1,40 +1,43 @@
 <?php
 
-namespace App\Filament\Resources\Products\Tables;
+namespace App\Filament\Resources\Orders\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Schemas\Components\Image;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class ProductsTable
+class OrdersTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
                 TextColumn::make('index')
-                    ->label('No.') // Optional: customize the column header label
-                    ->rowIndex(),
-                ImageColumn::make('image')
-                    ->label('Image'),
-                TextColumn::make('name')
-                    ->label('Name')
+                ->label('No.') // Optional: customize the column header label
+                ->rowIndex(),
+                TextColumn::make('product.name')
+                    ->label('Product Name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('category.name')
-                    ->label('Category')
+                TextColumn::make('support_person')
+                    ->label('Support Person')
                     ->sortable()
-                    ->searchable(),   
-                TextColumn::make('qty')
+                    ->searchable(),
+                TextColumn::make('customer_unit')
+                    ->label('Customer Unit')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('date')
+                    ->label('Date')
+                    ->date()
+                    ->sortable(),
+                TextColumn::make('qty') 
                     ->label('Quantity')
                     ->sortable(),
-                TextColumn::make('instock_date')
-                    ->label('In-Stock Date')
-                    ->date()
+                TextColumn::make('status')
+                    ->label('Status')
                     ->sortable(),
                 TextColumn::make('commands')
                     ->label('Commands')

@@ -12,7 +12,12 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
-    
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
     protected $fillable = [
         'name', 
         'commands', 
