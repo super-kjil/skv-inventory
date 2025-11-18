@@ -41,7 +41,13 @@ class AdminPanelProvider extends PanelProvider
                 AccountWidget::class,
                 FilamentInfoWidget::class,
             ])
+            ->unsavedChangesAlerts()
             ->databaseNotifications()
+            ->navigationGroups([
+                'Products Stock',
+                'Customer Orders',
+                'Official Plans',
+            ])
             ->maxContentWidth('full')
             ->middleware([
                 EncryptCookies::class,
