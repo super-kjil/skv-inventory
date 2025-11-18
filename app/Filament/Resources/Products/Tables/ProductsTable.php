@@ -5,10 +5,16 @@ namespace App\Filament\Resources\Products\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ExportAction;
 use Filament\Schemas\Components\Image;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use App\Filament\Exports\ProductExporter;
+use Filament\Actions\ExportBulkAction;
+use Filament\Actions\Exports\Enums\ExportFormat;
+use Filament\Actions\Exports\Models\Export;
+use Illuminate\Support\Carbon;
 
 class ProductsTable
 {
@@ -18,7 +24,10 @@ class ProductsTable
             ->columns([
                 TextColumn::make('index')
                     ->label('No.') // Optional: customize the column header label
-                    ->rowIndex(),
+                    ->rowIndex()
+                    ->getStateUsing(function ($rowLoop) {
+                        return $rowLoop->iteration;
+                    }),
                 ImageColumn::make('image')
                     ->label('Image'),
                 TextColumn::make('name')
@@ -42,6 +51,12 @@ class ProductsTable
                     ->sortable()
                     ->searchable(),
             ])
+            ->headerActions([
+            ExportAction::make()
+                ->exporter(ProductExporter::class)
+                ->formats([ExportFormat::Xlsx])
+                ->fileName(fn (Export $export): string => 'Product-List-' . Carbon::now()->format('d-M-y')),
+            ])
             ->filters([
                 //
             ])
@@ -52,6 +67,9 @@ class ProductsTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
+                ExportBulkAction::make()
+                    ->exporter(ProductExporter::class)
+                    ->formats([ExportFormat::Xlsx]),
             ]);
     }
 }

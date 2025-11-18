@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Orders\Schemas;
 
 use App\Enums\OrderStatusEnum;
+use App\Models\Product;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -18,7 +19,10 @@ class OrderForm
                     ->label('Product')
                     ->relationship('product', 'name')
                     ->preload()
-                    ->required(),
+                    ->afterStateUpdated(fn ($state, callable $set) =>
+                    $set('available_qty', Product::find($state)?->qty)
+                )
+                ->required(),
                 TextInput::make('support_person')
                     ->label('Support Person')
                     ->required(),
@@ -31,18 +35,23 @@ class OrderForm
                     ->default(now())
                     ->required(),
                 TextInput::make('qty')
-                    ->label('Quantity')
-                    ->numeric()
-                    ->required(),
+                ->label('Order Qty')
+                ->numeric()
+                ->required()
+                ->reactive()
+                ->rule(function (callable $get) {
+                    return function (string $attribute, $value, $fail) use ($get) {
+                        $available = $get('available_qty');
+                        if ($available !== null && $value > $available) {
+                            $fail("Only {$available} item(s) available in stock.");
+                        }
+                    };
+                }),
                 Select::make('status')
                     ->options([
                         OrderStatusEnum::BUY->value => 'Buy',
                         OrderStatusEnum::LOAN->value => 'Loan',
                         OrderStatusEnum::SPOILED->value => 'Spoiled',
-                    //  //
-                    //     'pending' => 'Pending',
-                    //     'completed' => 'Completed',
-                    //     'canceled' => 'Canceled',
                     ])
                     ->label('Status')
                     ->required(),
