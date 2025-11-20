@@ -44,6 +44,7 @@ class AdminPanelProvider extends PanelProvider
             ->unsavedChangesAlerts()
             ->databaseNotifications()
             ->navigationGroups([
+                'Customer Management',
                 'Products Stock',
                 'Customer Orders',
                 'Official Plans',

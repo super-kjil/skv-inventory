@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Orders\Tables;
 
+use App\Enums\OrderStatusEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -15,8 +16,12 @@ class OrdersTable
         return $table
             ->columns([
                 TextColumn::make('index')
-                ->label('No.') // Optional: customize the column header label
+                ->label('No.')
                 ->rowIndex(),
+                TextColumn::make('customerUnit.unit_name')
+                    ->label('Customer Unit')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('product.name')
                     ->label('Product Name')
                     ->sortable()
@@ -24,11 +29,7 @@ class OrdersTable
                 TextColumn::make('support_person')
                     ->label('Support Person')
                     ->sortable()
-                    ->searchable(),
-                TextColumn::make('customer_unit')
-                    ->label('Customer Unit')
-                    ->sortable()
-                    ->searchable(),
+                    ->searchable(),               
                 TextColumn::make('date')
                     ->label('Date')
                     ->date()
@@ -38,9 +39,11 @@ class OrdersTable
                     ->sortable(),
                 TextColumn::make('status')
                     ->label('Status')
+                    ->badge()
+                    ->color(fn ($state): string => OrderStatusEnum::from($state)->getColor())
                     ->sortable(),
-                TextColumn::make('commands')
-                    ->label('Commands')
+                TextColumn::make('remark')
+                    ->label('Remarks')
                     ->limit(50)
                     ->sortable()
                     ->searchable(),

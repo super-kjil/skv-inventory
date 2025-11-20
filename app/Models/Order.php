@@ -11,15 +11,20 @@ class Order extends Model
     protected $fillable = [
         'product_id',
         'support_person',
-        'customer_unit',
+        'customer_unit_id',
         'date',
         'qty',
         'status',
-        'commands',
+        'remark',
     ];
 
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function customerUnit(): BelongsTo
+    {
+        return $this->belongsTo(CustomerUnit::class);
     }
 }

@@ -16,11 +16,14 @@ return new class extends Migration
             $table->foreignId('product_id')
                 ->constrained('products');
             $table->string('support_person');
-            $table->string('customer_unit');
+            $table->foreignId('customer_unit_id')
+                ->constrained('customer_units')
+                ->onDelete('cascade');
             $table->date('date');
             $table->integer('qty');
             $table->string('status');
-            $table->text('commands')->nullable();
+            $table->text('remark')
+                ->nullable();
             $table->timestamps();
         });
     }

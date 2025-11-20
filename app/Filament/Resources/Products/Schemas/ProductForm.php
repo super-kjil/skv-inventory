@@ -28,8 +28,7 @@ class ProductForm
                             ->relationship('category', 'name')
                             ->searchable()
                             ->preload()
-                            ->nullable(),
-                        
+                            ->required(),
                         TextInput::make('qty')
                             ->label('Quantity')
                             ->numeric()
@@ -38,8 +37,8 @@ class ProductForm
                             ->label('In-Stock Date')
                             ->required()
                             ->default(Date::now()),
-                        TextInput::make('commands')
-                            ->label('Commands')
+                        TextInput::make('remark')
+                            ->label('Remark')
                             ->maxLength(65535)
                             ->nullable(),
                     ])->columns(1),
@@ -49,7 +48,7 @@ class ProductForm
                             ->label('Product Image')
                             ->image()
                             ->imagePreviewHeight(350)
-                            ->required(),
+                            ->nullable(),
                     ])
             ])->columns(2);
     }

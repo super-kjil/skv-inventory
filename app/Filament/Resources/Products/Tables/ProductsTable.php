@@ -29,7 +29,8 @@ class ProductsTable
                         return $rowLoop->iteration;
                     }),
                 ImageColumn::make('image')
-                    ->label('Image'),
+                    ->label('Image')
+                    ->imageHeight(50),
                 TextColumn::make('name')
                     ->label('Name')
                     ->sortable()
@@ -45,8 +46,8 @@ class ProductsTable
                     ->label('In-Stock Date')
                     ->date()
                     ->sortable(),
-                TextColumn::make('commands')
-                    ->label('Commands')
+                TextColumn::make('remark')
+                    ->label('Remark')
                     ->limit(50)
                     ->sortable()
                     ->searchable(),
