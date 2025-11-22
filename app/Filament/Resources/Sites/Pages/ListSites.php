@@ -12,8 +12,12 @@ class ListSites extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
-            CreateAction::make(),
-        ];
+        $actions = [];
+        
+        if (request()->user()?->can('site.create')) {
+            $actions[] = CreateAction::make();
+        }
+        
+        return $actions;
     }
 }

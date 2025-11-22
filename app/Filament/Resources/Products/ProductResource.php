@@ -9,6 +9,7 @@ use App\Filament\Resources\Products\RelationManagers\CategoryRelationManager;
 use App\Filament\Resources\Products\Schemas\ProductForm;
 use App\Filament\Resources\Products\Tables\ProductsTable;
 use App\Models\Product;
+use App\Traits\HasResourcePermissions;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -18,11 +19,15 @@ use UnitEnum;
 
 class ProductResource extends Resource
 {
+    use HasResourcePermissions;
+    
     protected static ?string $model = Product::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static string|UnitEnum|null $navigationGroup = 'Products Stock';
+    
+    protected static ?string $recordTitleAttribute = 'name';
     
     protected static ?int $navigationSort = 1;
 

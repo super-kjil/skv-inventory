@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('customer_units', function (Blueprint $table) {
             $table->id();
             $table->string('unit_name');
-            $table->string('floor');
+            $table->string('customer_type');
+            $table->string('customer_name');
+            $table->string('customer_id')->nullable();
+            $table->string('customer_tel')->nullable();
             $table->string('status');
             $table->string('remark')
                 ->nullable();

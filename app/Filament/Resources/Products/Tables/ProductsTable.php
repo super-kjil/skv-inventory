@@ -11,13 +11,17 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use App\Filament\Exports\ProductExporter;
+use App\Traits\HasResourceTableActions;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\ExportBulkAction;
 use Filament\Actions\Exports\Enums\ExportFormat;
 use Filament\Actions\Exports\Models\Export;
 use Illuminate\Support\Carbon;
 
 class ProductsTable
-{
+{   
+    use HasResourceTableActions;
+    
     public static function configure(Table $table): Table
     {
         return $table
@@ -39,12 +43,22 @@ class ProductsTable
                     ->label('Category')
                     ->sortable()
                     ->searchable(),   
+                // TextColumn::make('qty')
+                //     ->label('Quantity')
+                //     ->sortable(),
                 TextColumn::make('qty')
                     ->label('Quantity')
-                    ->sortable(),
+                    ->sortable()
+                    ->badge()
+                    ->color(fn ($state) => match (true) {
+                        $state == 0 => 'danger',       // out of stock = red
+                        $state < 5 => 'warning',       // low stock = yellow/orange
+                        default => 'success',          // normal = green
+                    }),
+
                 TextColumn::make('instock_date')
                     ->label('In-Stock Date')
-                    ->date()
+                    ->date('d-M-Y')
                     ->sortable(),
                 TextColumn::make('remark')
                     ->label('Remark')
@@ -61,13 +75,13 @@ class ProductsTable
             ->filters([
                 //
             ])
-            ->recordActions([
-                EditAction::make(),
-            ])
+            ->recordActions(
+                self::getEditDeleteActions('product')
+                )
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+            BulkActionGroup::make([
+                self::getDeleteBulkAction('product'),
+            ]),
                 ExportBulkAction::make()
                     ->exporter(ProductExporter::class)
                     ->formats([ExportFormat::Xlsx]),

@@ -8,10 +8,13 @@ class CustomerUnit extends Model
 {
     protected $fillable = [
         'unit_name',
-        'floor',
+        'customer_type',
         'site_id',
         'status',
         'remark',
+        'customer_name',
+        'customer_id',
+        'customer_tel',
     ];
 
     public function site() 
@@ -19,7 +22,7 @@ class CustomerUnit extends Model
         return $this->belongsTo(Site::class);
     }
 
-    public function wifiInfos()
+    public function wifiInfomation()
     {
         return $this->hasMany(WifiInfo::class);
     }

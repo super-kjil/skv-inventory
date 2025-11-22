@@ -20,7 +20,9 @@ use Filament\Tables\Table;
 
 class WifiInfoRelationManager extends RelationManager
 {
-    protected static string $relationship = 'wifiInfos';
+    protected static string $relationship = 'wifiInfomation';
+
+    protected static ?string $recordTitleAttribute = 'ssid';
 
     public function form(Schema $schema): Schema
     {
@@ -40,10 +42,10 @@ class WifiInfoRelationManager extends RelationManager
                     ->label('Management IP')
                     ->required(),
                 TextInput::make('wifi_user')
-                    ->label('WiFi User')
+                    ->label('Management User')
                     ->required(),
                 TextInput::make('wifi_password')
-                    ->label('WiFi Password')
+                    ->label('Management Password')
                     ->required(),
                 Select::make('status')
                     ->label('Status')
@@ -53,6 +55,7 @@ class WifiInfoRelationManager extends RelationManager
                         'Pending' => 'Pending',
                         'Terminated' => 'Terminated',
                     ])
+                    ->default('Active')
                     ->required(),
                 TextInput::make('remark')
                     ->label('Remark')
@@ -88,13 +91,14 @@ class WifiInfoRelationManager extends RelationManager
                     ->sortable()   
                     ->searchable(),
                 TextColumn::make('wifi_user')
-                    ->label('WiFi User')
+                    ->label('Management User')
                     ->searchable(),
                 TextColumn::make('wifi_password')
-                    ->label('WiFi Password')
+                    ->label('Management Password')
                     ->searchable(),
                 TextColumn::make('status')  
                     ->label('Status')
+                    ->badge()
                     ->searchable(),
                 TextColumn::make('remark')
                     ->label('Remark')
@@ -110,12 +114,12 @@ class WifiInfoRelationManager extends RelationManager
             ->recordActions([
                 EditAction::make(),
                 // DissociateAction::make(),
-                DeleteAction::make(),
+                // DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     // DissociateBulkAction::make(),
-                    DeleteBulkAction::make(),
+                    // DeleteBulkAction::make(),
                 ]),
             ]);
     }

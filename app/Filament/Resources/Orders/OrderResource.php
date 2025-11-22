@@ -8,6 +8,7 @@ use App\Filament\Resources\Orders\Pages\ListOrders;
 use App\Filament\Resources\Orders\Schemas\OrderForm;
 use App\Filament\Resources\Orders\Tables\OrdersTable;
 use App\Models\Order;
+use App\Traits\HasResourcePermissions;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -17,12 +18,16 @@ use UnitEnum;
 
 class OrderResource extends Resource
 {
+    use HasResourcePermissions;
+    
     protected static ?string $model = Order::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static string|UnitEnum|null $navigationGroup = 'Customer Management';
     
+    // protected static ?string $recordTitleAttribute = 'customer_unit_id';
+
     protected static ?int $navigationSort = 2;
 
     public static function form(Schema $schema): Schema

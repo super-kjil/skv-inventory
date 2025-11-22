@@ -12,8 +12,12 @@ class ListOrders extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
-            CreateAction::make(),
-        ];
+        $actions = [];
+        
+        if (request()->user()?->can('order.create')) {
+            $actions[] = CreateAction::make();
+        }
+        
+        return $actions;
     }
 }

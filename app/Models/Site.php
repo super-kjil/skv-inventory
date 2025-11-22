@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Site extends Model
 {
     protected $fillable = ['name'];
+
+    public function customerUnits()
+    {
+        return $this->hasMany(CustomerUnit::class);
+    }
 }

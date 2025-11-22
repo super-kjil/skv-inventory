@@ -9,6 +9,7 @@ use App\Filament\Resources\CustomerUnits\RelationManagers\WifiInfoRelationManage
 use App\Filament\Resources\CustomerUnits\Schemas\CustomerUnitForm;
 use App\Filament\Resources\CustomerUnits\Tables\CustomerUnitsTable;
 use App\Models\CustomerUnit;
+use App\Traits\HasResourcePermissions;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -18,12 +19,16 @@ use UnitEnum;
 
 class CustomerUnitResource extends Resource
 {
+    use HasResourcePermissions;
+    
     protected static ?string $model = CustomerUnit::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static string|UnitEnum|null $navigationGroup = 'Customer Management';
     
+    protected static ?string $recordTitleAttribute = 'unit_name';
+
     protected static ?int $navigationSort = 1;
 
 
@@ -51,5 +56,10 @@ class CustomerUnitResource extends Resource
             'create' => CreateCustomerUnit::route('/create'),
             'edit' => EditCustomerUnit::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }
