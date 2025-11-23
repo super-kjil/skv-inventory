@@ -19,11 +19,13 @@ class SiteForm
                         TextInput::make('name')
                             ->label('Site Name')
                             ->required(),
-                        // Select::make('')
-                        //     ->label('Location'),
-                            // ->required(),
-                    ])->columns(2),
-                
+                        Select::make('location_id')
+                            ->label('Location')
+                            ->relationship('location', 'name')
+                            ->required(),
+                        TextInput::make('direction')  
+                    ->label('Lat-Long Direction'), 
+                    ])->columns(2),                       
             ])->columns(1);
     }
 }

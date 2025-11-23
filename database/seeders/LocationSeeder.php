@@ -2,38 +2,37 @@
 
 namespace Database\Seeders;
 
-use App\Models\Site;
+use App\Models\Location;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SiteSeeder extends Seeder
+class LocationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $sites = [
+        $locations = [
             [
-                'name' => 'SKV',
-                'direction' => '11.556792637053443, 104.91436232023791',
-                'location_id' => 1,
+                'name' => 'PHN',
+                'description' => 'Phnom Penh',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'name' => 'The-Palm',
-                'direction' => '11.54193961445406, 104.9654628380771',
-                'location_id' => 1,
+                'name' => 'SHV',
+                'description' => 'Sihanoukville',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
+            
         ];
 
-        Site::upsert(
-            $sites,
+        Location::upsert(
+            $locations,
             ['name'], // unique key
-            ['direction', 'updated_at']
+            ['description', 'updated_at']
         );
     }
 }

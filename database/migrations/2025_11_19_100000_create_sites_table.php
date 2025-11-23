@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('sites', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('location_id')
+                ->constrained()
+                ->onDelete('cascade');
+            $table->string('direction')
+                ->nullable();
             $table->timestamps();
         });
     }

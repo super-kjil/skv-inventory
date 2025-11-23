@@ -19,6 +19,11 @@ class SitesTable
             ->columns([
                 TextColumn::make('name')
                     ->label('Site Name'),
+                TextColumn::make('location.name')                   
+                    ->label('Location')
+                    ->sortable(),
+                TextColumn::make('direction')
+                    ->label('Lat-Long Direction'),
             ])
             ->filters([
                 //

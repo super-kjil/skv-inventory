@@ -29,7 +29,10 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ProductSeeder::class,
             UserSeeder::class,
+            LocationSeeder::class,
             SiteSeeder::class,
+            CustomerInfoSeeder::class,
+            CustomerWifiInfoSeeder::class,
         ]);
     }
 }

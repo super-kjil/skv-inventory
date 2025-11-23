@@ -90,10 +90,10 @@ class WifiInfoRelationManager extends RelationManager
                     ->label('Management IP') 
                     ->sortable()   
                     ->searchable(),
-                TextColumn::make('wifi_user')
+                TextColumn::make('mgmt_user')
                     ->label('Management User')
                     ->searchable(),
-                TextColumn::make('wifi_password')
+                TextColumn::make('mgmt_password')
                     ->label('Management Password')
                     ->searchable(),
                 TextColumn::make('status')  

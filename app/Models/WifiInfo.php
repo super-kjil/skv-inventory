@@ -12,8 +12,8 @@ class WifiInfo extends Model
         'password',
         'product_id',
         'mgmt_ip',
-        'wifi_user',
-        'wifi_password',
+        'mgmt_user',
+        'mgmt_password',
         'status',
         'remark',
     ];

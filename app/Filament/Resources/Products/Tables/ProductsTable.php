@@ -34,6 +34,7 @@ class ProductsTable
                     }),
                 ImageColumn::make('image')
                     ->label('Image')
+                    ->placeholder('No Image')
                     ->imageHeight(50),
                 TextColumn::make('name')
                     ->label('Name')
@@ -43,9 +44,6 @@ class ProductsTable
                     ->label('Category')
                     ->sortable()
                     ->searchable(),   
-                // TextColumn::make('qty')
-                //     ->label('Quantity')
-                //     ->sortable(),
                 TextColumn::make('qty')
                     ->label('Quantity')
                     ->sortable()
@@ -55,7 +53,6 @@ class ProductsTable
                         $state < 5 => 'warning',       // low stock = yellow/orange
                         default => 'success',          // normal = green
                     }),
-
                 TextColumn::make('instock_date')
                     ->label('In-Stock Date')
                     ->date('d-M-Y')

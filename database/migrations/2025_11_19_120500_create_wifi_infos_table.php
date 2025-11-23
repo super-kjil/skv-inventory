@@ -22,8 +22,8 @@ return new class extends Migration
                 ->constrained('products')
                 ->cascadeOnDelete();
             $table->string('mgmt_ip');
-            $table->string('wifi_user');
-            $table->string('wifi_password');
+            $table->string('mgmt_user');
+            $table->string('mgmt_password');
             $table->string('status');
             $table->string('remark')
                 ->nullable();

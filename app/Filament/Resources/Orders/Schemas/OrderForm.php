@@ -110,15 +110,6 @@ class OrderForm
                             TextInput::make('support_person')
                                 ->label('Support Person')
                                 ->required(),
-                            // Select::make('status')
-                            //     ->options([
-                            //         OrderStatusEnum::BUY->value => 'Buy',
-                            //         OrderStatusEnum::LOAN->value => 'Loan',
-                            //         OrderStatusEnum::SPOILED->value => 'Spoiled',
-                            //     ])
-                            //     ->default(OrderStatusEnum::BUY->value)
-                            //     ->label('Status')
-                            //     ->required(),
                             ToggleButtons::make('status')
                                 ->inline()
                                 ->options(OrderStatusEnum::class)
