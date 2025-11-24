@@ -27,7 +27,9 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            // ->registration()
+            // ->login()
+            ->profile()
             ->colors([
                 'primary' => Color::Blue,
             ])
@@ -62,6 +64,7 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            // ->spa(hasPrefetching: true)
             ->spa()
             ->authMiddleware([
                 Authenticate::class,

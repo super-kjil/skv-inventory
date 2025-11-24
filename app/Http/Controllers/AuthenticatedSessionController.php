@@ -46,14 +46,8 @@ class AuthenticatedSessionController extends BaseController
 
         $redirectTo = $this->getRedirectRoute($user);
 
-        if ($intended = session()->get('url.intended')) {
-            if ($user->hasRole([RolesEnum::Admin])) {
-                return Inertia::location($redirectTo);
-            }
-            return redirect()->intended($redirectTo);
-        }
-
-        return Inertia::location($redirectTo);
+        // Redirect to intended URL if available, otherwise to role-based path
+        return redirect()->intended($redirectTo);
     }
 
     private function getRedirectRoute(User $user): string
